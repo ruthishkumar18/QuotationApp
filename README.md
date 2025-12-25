@@ -46,18 +46,49 @@ QuotationApp is a complete Android application designed for small businesses and
 
 QuotationApp/
 ├── app/
-│   ├── java/com/example/quotationapp/
-│   │   ├── adapter/
-│   │   ├── db/
-│   │   ├── model/
-│   │   └── activities/
-│   ├── res/
-│   │   ├── layout/
-│   │   ├── drawable/
-│   │   └── values/
-├── AndroidManifest.xml
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/example/quotationapp/
+│   │   │   │   ├── adapter/
+│   │   │   │   │   ├── ComponentsAdapter.kt
+│   │   │   │   │   ├── PrepareComponentsAdapter.kt
+│   │   │   │   │   └── QuotationHistoryAdapter.kt
+│   │   │   │   │
+│   │   │   │   ├── db/
+│   │   │   │   │   ├── AppDatabase.kt
+│   │   │   │   │   ├── DatabaseContract.kt
+│   │   │   │   │   └── DatabaseManager.kt
+│   │   │   │   │
+│   │   │   │   ├── model/
+│   │   │   │   │   ├── ComponentModel.kt
+│   │   │   │   │   └── QuotationModel.kt
+│   │   │   │   │
+│   │   │   │   ├── AddCompanyHeaderActivity.kt
+│   │   │   │   ├── AddComponentsActivity.kt
+│   │   │   │   ├── HomeActivity.kt
+│   │   │   │   ├── LoginActivity.kt
+│   │   │   │   ├── PrepareQuotationActivity.kt
+│   │   │   │   ├── QuotationHistoryActivity.kt
+│   │   │   │   ├── QuotationPDFActivity.kt
+│   │   │   │   └── PaymentQRActivity.kt
+│   │   │   │
+│   │   │   ├── res/
+│   │   │   │   ├── layout/
+│   │   │   │   ├── drawable/
+│   │   │   │   ├── values/
+│   │   │   │   └── xml/
+│   │   │   │
+│   │   │   └── AndroidManifest.xml
+│   │   │
+│   │   └── build.gradle
+│   │
+│   └── build.gradle
+│
+├── gradle/
 ├── build.gradle
-├── README.md
+├── settings.gradle
+└── README.md
+
 
 ---
 
