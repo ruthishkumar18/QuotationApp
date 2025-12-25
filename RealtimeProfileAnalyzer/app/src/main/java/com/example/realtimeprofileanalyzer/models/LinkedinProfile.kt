@@ -1,21 +1,16 @@
 package com.example.realtimeprofileanalyzer.models
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
-
-class LinkedinProfile : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_linkedin_profile)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-}
+data class LinkedinProfile(
+    val profileUrl: String,
+    val headline: String,
+    val connections: Int,
+    val followers: Int,
+    val following: Int,
+    val posts: Int,
+    val impressions: Int,
+    val bio: String,
+    val education: String,
+    val experience: String,
+    val profileScore: Int,
+    val suggestions: String
+)

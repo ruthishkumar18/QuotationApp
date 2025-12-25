@@ -1,21 +1,10 @@
 package com.example.voicequoteai.ui.auth
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.lifecycle.ViewModel
 
-class AuthViewModel : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_auth_view_model)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class AuthViewModel : ViewModel() {
+    fun login(email: String, password: String): Boolean {
+        // Dummy login logic
+        return email.isNotEmpty() && password.isNotEmpty()
     }
 }

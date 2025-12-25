@@ -1,21 +1,31 @@
 package com.example.onlinefoodorderingapp.activities
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.onlinefoodorderingapp.adapters.FoodAdapter
+import com.example.onlinefoodorderingapp.database.DBHelper
+import com.example.onlinefoodorderingapp.databinding.ActivityUserHomeBinding
 
 class UserHomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityUserHomeBinding
+    private lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_user_home)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityUserHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        dbHelper = DBHelper(this)
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.adapter =
+            FoodAdapter(dbHelper.getAllFoods(), this)
+
+        binding.btnCart.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
         }
     }
 }

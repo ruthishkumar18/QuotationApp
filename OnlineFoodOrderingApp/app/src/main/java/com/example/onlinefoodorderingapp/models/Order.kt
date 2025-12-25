@@ -1,21 +1,9 @@
 package com.example.onlinefoodorderingapp.models
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
-
-class Order : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_order)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-}
+data class Order(
+    val id: Int = 0,
+    val orderId: String,          // unique QR code value
+    val foodSummary: String,      // food name, quantity, price list
+    val totalAmount: Double,
+    val isVerified: Int = 0       // 0 = not verified, 1 = verified
+)

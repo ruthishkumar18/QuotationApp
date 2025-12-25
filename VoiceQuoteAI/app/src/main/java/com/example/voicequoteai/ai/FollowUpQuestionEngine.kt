@@ -1,21 +1,23 @@
 package com.example.voicequoteai.ai
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+class FollowUpQuestionEngine {
 
-class FollowUpQuestionEngine : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_follow_up_question_engine)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+    fun getQuestions(result: AIResult): List<String> {
+
+        val questions = mutableListOf<String>()
+
+        if (result.advancePercent == null) {
+            questions.add("What is the advance payment percentage?")
         }
+
+        if (result.deliveryTimeline == null) {
+            questions.add("What is the delivery timeline?")
+        }
+
+        if (result.amount <= 0) {
+            questions.add("What is the total amount?")
+        }
+
+        return questions
     }
 }

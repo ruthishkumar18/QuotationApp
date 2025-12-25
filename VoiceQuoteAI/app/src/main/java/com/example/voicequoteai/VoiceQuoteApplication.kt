@@ -1,20 +1,26 @@
 package com.example.voicequoteai
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.app.Application
+import androidx.room.Room
+import com.example.voicequoteai.data.local.AppDatabase
 
-class VoiceQuoteApplication : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_voice_quote_application)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class VoiceQuoteApplication : Application() {
+
+    companion object {
+        lateinit var database: AppDatabase
+            private set
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        // Initialize Room Database
+        database = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "voicequote_db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

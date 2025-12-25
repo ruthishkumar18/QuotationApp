@@ -1,21 +1,19 @@
 package com.example.onlinefoodorderingapp.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
+object Constants {
 
-class Constants : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_constants)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+    // Admin credentials
+    const val ADMIN_USERNAME = "admin"
+    const val ADMIN_PASSWORD = "admin@123"
+
+    // Email domains
+    const val STUDENT_DOMAIN = "@gmail.com"
+    const val STAFF_DOMAIN = "@srec.ac.in"
+
+    // Order status
+    const val ORDER_NOT_VERIFIED = 0
+    const val ORDER_VERIFIED = 1
+
+    // QR
+    const val QR_SIZE = 500
 }

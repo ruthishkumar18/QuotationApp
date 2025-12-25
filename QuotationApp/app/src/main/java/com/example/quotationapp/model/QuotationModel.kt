@@ -1,21 +1,12 @@
 package com.example.quotationapp.model
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.quotationapp.R
+data class QuotationModel(
+    val id: Int,
+    val customerName: String,
+    val customerMobile: String,
+    val customerEmail: String,
+    val pdfPath: String,
+    val date: String,
+    val status: String // PENDING / ACCEPTED / REJECTED
+)
 
-class QuotationModel : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_quotation_model)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-}

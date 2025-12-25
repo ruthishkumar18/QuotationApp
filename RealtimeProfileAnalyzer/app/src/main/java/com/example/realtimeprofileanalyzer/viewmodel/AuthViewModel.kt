@@ -1,21 +1,21 @@
 package com.example.realtimeprofileanalyzer.viewmodel
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
+import androidx.lifecycle.ViewModel
+import com.example.realtimeprofileanalyzer.database.DatabaseHelper
+import com.example.realtimeprofileanalyzer.utils.ValidationUtils
 
-class AuthViewModel : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_auth_view_model)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class AuthViewModel : ViewModel() {
+
+    fun validateLogin(email: String, password: String): Boolean {
+        return ValidationUtils.isValidEmail(email) &&
+                ValidationUtils.isValidPassword(password)
+    }
+
+    fun login(db: DatabaseHelper, email: String, password: String): Boolean {
+        return db.loginUser(email, password)
+    }
+
+    fun register(db: DatabaseHelper, email: String, password: String): Boolean {
+        return db.registerUser(email, password)
     }
 }

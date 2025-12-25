@@ -1,21 +1,22 @@
-package com.example.voicequoteai.utils
+package com.voicequoteai.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import java.text.NumberFormat
+import java.util.Locale
 
-class CurrencyUtils : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_currency_utils)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+object CurrencyUtils {
+
+    fun formatAmount(amount: Double): String {
+        val format = NumberFormat.getCurrencyInstance(
+            Locale("en", "IN")
+        )
+        return format.format(amount)
+    }
+
+    fun calculateGST(amount: Double, gstPercent: Int = 18): Double {
+        return (amount * gstPercent) / 100
+    }
+
+    fun calculateTotal(amount: Double, gstPercent: Int = 18): Double {
+        return amount + calculateGST(amount, gstPercent)
     }
 }

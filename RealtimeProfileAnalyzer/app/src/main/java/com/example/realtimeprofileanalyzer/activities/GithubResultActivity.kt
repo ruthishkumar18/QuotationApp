@@ -1,21 +1,46 @@
 package com.example.realtimeprofileanalyzer.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
+import com.example.realtimeprofileanalyzer.databinding.ActivityGithubResultBinding
+import com.example.realtimeprofileanalyzer.viewmodel.GithubViewModel
 
 class GithubResultActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityGithubResultBinding
+    private val viewModel: GithubViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_github_result)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityGithubResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val username = intent.getStringExtra("profileId") ?: ""
+
+        viewModel.analyze(username)
+
+        viewModel.result.observe(this) {
+
+            binding.tvScore.text =
+                "GitHub Score: ${it.profileScore} / 100"
+
+            binding.tvReport.text = """
+                Username: ${it.username}
+                Profile URL: ${it.profileUrl}
+
+                Public Repositories: ${it.publicRepos}
+                Followers: ${it.followers}
+                Following: ${it.following}
+                Estimated Commits: ${it.estimatedCommits}
+
+                Summary:
+                ${it.summary}
+            """.trimIndent()
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 }

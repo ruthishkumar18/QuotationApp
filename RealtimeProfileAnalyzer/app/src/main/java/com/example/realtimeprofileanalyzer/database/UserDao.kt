@@ -1,21 +1,12 @@
 package com.example.realtimeprofileanalyzer.database
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
+class UserDao(private val db: DatabaseHelper) {
 
-class UserDao : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_user_dao)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    fun login(email: String, password: String): Boolean {
+        return db.loginUser(email, password)
+    }
+
+    fun register(email: String, password: String): Boolean {
+        return db.registerUser(email, password)
     }
 }

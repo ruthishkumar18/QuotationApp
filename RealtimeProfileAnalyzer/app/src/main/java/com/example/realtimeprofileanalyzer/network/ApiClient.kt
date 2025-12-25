@@ -1,21 +1,24 @@
 package com.example.realtimeprofileanalyzer.network
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_api_client)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+object ApiClient {
+
+    private const val GITHUB_BASE_URL = "https://api.github.com/"
+    private const val LEETCODE_BASE_URL = "https://leetcode.com/"
+
+    val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(GITHUB_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    val leetcodeRetrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(LEETCODE_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 }

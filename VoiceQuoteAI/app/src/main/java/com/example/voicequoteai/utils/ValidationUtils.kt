@@ -1,21 +1,18 @@
-package com.example.voicequoteai.utils
+package com.voicequoteai.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import android.util.Patterns
 
-class ValidationUtils : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_validation_utils)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+object ValidationUtils {
+
+    fun isValidEmail(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    fun isValidPhone(phone: String): Boolean {
+        return phone.length in 10..13
+    }
+
+    fun isNotEmpty(text: String): Boolean {
+        return text.trim().isNotEmpty()
     }
 }

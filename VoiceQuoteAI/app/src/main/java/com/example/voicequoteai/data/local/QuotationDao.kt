@@ -1,21 +1,19 @@
 package com.example.voicequoteai.data.local
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import com.example.voicequoteai.data.model.Quotation
 
-class QuotationDao : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_quotation_dao)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+@Dao
+interface QuotationDao {
+
+    @Insert
+    suspend fun insertQuotation(quotation: Quotation)
+
+    @Query("SELECT * FROM quotations ORDER BY id DESC")
+    suspend fun getAllQuotations(): List<Quotation>
+
+    @Query("DELETE FROM quotations")
+    suspend fun clearAll()
 }

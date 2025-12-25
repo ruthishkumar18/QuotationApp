@@ -1,21 +1,28 @@
-package com.example.voicequoteai.utils
+package com.voicequoteai.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-class DateUtils : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_date_utils)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+object DateUtils {
+
+    fun getCurrentDate(): String {
+        val sdf = SimpleDateFormat(
+            Constants.DATE_FORMAT,
+            Locale.getDefault()
+        )
+        return sdf.format(Date())
+    }
+
+    fun getValidityDate(days: Int = Constants.QUOTATION_VALIDITY_DAYS): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_MONTH, days)
+
+        val sdf = SimpleDateFormat(
+            Constants.DATE_FORMAT,
+            Locale.getDefault()
+        )
+        return sdf.format(calendar.time)
     }
 }

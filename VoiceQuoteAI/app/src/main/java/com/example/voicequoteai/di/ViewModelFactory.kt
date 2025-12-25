@@ -1,21 +1,38 @@
 package com.example.voicequoteai.di
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.voicequoteai.ui.preview.PreviewViewModel
+import com.example.voicequoteai.ui.history.HistoryViewModel
+import com.example.voicequoteai.ui.profile.ProfileViewModel
 
-class ViewModelFactory : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_view_model_factory)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+class ViewModelFactory : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+
+        return when {
+            modelClass.isAssignableFrom(PreviewViewModel::class.java) -> {
+                PreviewViewModel(
+                    AppModule.nlpExtractor,
+                    AppModule.fieldMapper,
+                    AppModule.followUpQuestionEngine,
+                    AppModule.quotationRepository
+                ) as T
+            }
+
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(
+                    AppModule.quotationRepository
+                ) as T
+            }
+
+            modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
+                ProfileViewModel(
+                    AppModule.profileRepository
+                ) as T
+            }
+
+            else -> throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

@@ -1,21 +1,32 @@
 package com.example.realtimeprofileanalyzer.adapters
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.realtimeprofileanalyzer.R
 
-class TableAdapter : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_table_adapter)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class TableAdapter(
+    private val tableData: List<Pair<String, String>>
+) : RecyclerView.Adapter<TableAdapter.TableViewHolder>() {
+
+    class TableViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvKey: TextView = view.findViewById(R.id.tvKey)
+        val tvValue: TextView = view.findViewById(R.id.tvValue)
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TableViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_table_row, parent, false)
+        return TableViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: TableViewHolder, position: Int) {
+        val item = tableData[position]
+        holder.tvKey.text = item.first
+        holder.tvValue.text = item.second
+    }
+
+    override fun getItemCount(): Int = tableData.size
 }

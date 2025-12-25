@@ -1,10 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PrepareQuotationActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- CUSTOMER DETAILS -->
+        <EditText
+            android:id="@+id/etCustomerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Customer Name"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/etCustomerMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="Mobile Number (+91XXXXXXXXXX)"
+            android:padding="12dp"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/etCustomerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email ID"
+            android:padding="12dp"
+            android:layout_marginTop="10dp" />
+
+        <!-- SEARCH BAR -->
+        <EditText
+            android:id="@+id/etSearchComponent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Search components"
+            android:padding="10dp"
+            android:background="@android:drawable/edit_text"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:layout_marginTop="20dp"/>
+
+        <!-- COMPONENTS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Components"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvQuotationComponents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+        <!-- CREATE BUTTON -->
+        <Button
+            android:id="@+id/btnCreateQuotation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Quotation"
+            android:layout_marginTop="25dp" />
+
+    </LinearLayout>
+</ScrollView>

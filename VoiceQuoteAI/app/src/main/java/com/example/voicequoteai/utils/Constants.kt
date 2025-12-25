@@ -1,21 +1,14 @@
-package com.example.voicequoteai.utils
+package com.voicequoteai.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+object Constants {
 
-class Constants : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_constants)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+    const val VOICE_TEXT_KEY = "VOICE_TEXT"
+
+    const val DATE_FORMAT = "dd MMM yyyy"
+
+    const val CURRENCY_SYMBOL = "₹"
+
+    const val QUOTATION_VALIDITY_DAYS = 7
+
+    const val LANGUAGE_EN_IN = "en-IN"
 }

@@ -1,1 +1,9 @@
-package com.example.realtimeprofileanalyzer.network\n\nfun leetcodeQuery(username: String): String {\n    return \"\"\"{\"query\":\"query getUserProfile(\$username: String!) { matchedUser(username: \$username) { username submitStats: submitStatsGlobal { acSubmissionNum { difficulty count } } } }\",\"variables\":{\"username\":\"$username\"}} \"\"\"\n}\n
+package com.example.realtimeprofileanalyzer.network
+
+fun leetcodeQuery(username: String): String {
+    return """
+        {
+          "query": "query getUserProfile { matchedUser(username: \"$username\") { submitStats { acSubmissionNum { difficulty count } } } }"
+        }
+    """.trimIndent()
+}

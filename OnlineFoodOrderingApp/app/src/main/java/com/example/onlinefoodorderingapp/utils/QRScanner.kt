@@ -1,21 +1,30 @@
-package com.example.onlinefoodorderingapp.utils
+package com.example.foodordering.utils
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
+import android.app.Activity
+import android.content.Intent
+import com.google.zxing.integration.android.IntentIntegrator
 
-class QRScanner : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_qrscanner)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+object QRScanner {
+
+    fun startScan(activity: Activity) {
+        val integrator = IntentIntegrator(activity)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        integrator.setPrompt("Scan Order QR Code")
+        integrator.setCameraId(0)
+        integrator.setBeepEnabled(true)
+        integrator.setBarcodeImageEnabled(false)
+        integrator.initiateScan()
+    }
+
+    fun handleResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+        onResult: (String?) -> Unit
+    ) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            onResult(result.contents)
         }
     }
 }

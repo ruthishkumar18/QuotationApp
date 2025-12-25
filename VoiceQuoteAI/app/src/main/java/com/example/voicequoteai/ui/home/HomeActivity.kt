@@ -1,21 +1,36 @@
 package com.example.voicequoteai.ui.home
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.voicequoteai.R
+import com.example.voicequoteai.databinding.ActivityHomeBinding
+import com.example.voicequoteai.ui.history.HistoryActivity
+import com.example.voicequoteai.ui.profile.BusinessProfileActivity
+import com.example.voicequoteai.ui.voice.VoiceInputActivity
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Start voice quotation
+        binding.btnMic.setOnClickListener {
+            startActivity(Intent(this, VoiceInputActivity::class.java))
+        }
+
+        // Open quotation history
+        binding.btnHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
+        // Open business profile
+        binding.btnProfile.setOnClickListener {
+            startActivity(Intent(this, BusinessProfileActivity::class.java))
         }
     }
 }

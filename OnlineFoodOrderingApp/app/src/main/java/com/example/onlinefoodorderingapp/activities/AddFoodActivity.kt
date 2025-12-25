@@ -1,21 +1,32 @@
 package com.example.onlinefoodorderingapp.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
+import com.example.onlinefoodorderingapp.database.DBHelper
+import com.example.onlinefoodorderingapp.databinding.ActivityAddFoodBinding
 
 class AddFoodActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityAddFoodBinding
+    private lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_add_food)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityAddFoodBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        dbHelper = DBHelper(this)
+
+        binding.btnSave.setOnClickListener {
+            val name = binding.etName.text.toString()
+            val price = binding.etPrice.text.toString()
+
+            if (name.isNotEmpty() && price.isNotEmpty()) {
+                dbHelper.addFood(name, price.toDouble())
+                Toast.makeText(this, "Food Added", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 }

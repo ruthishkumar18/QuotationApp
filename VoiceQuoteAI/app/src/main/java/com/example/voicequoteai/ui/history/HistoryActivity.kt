@@ -1,21 +1,37 @@
 package com.example.voicequoteai.ui.history
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.voicequoteai.VoiceQuoteApplication
+import com.example.voicequoteai.databinding.ActivityHistoryBinding
+import kotlinx.coroutines.launch
 
 class HistoryActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityHistoryBinding
+    private lateinit var adapter: HistoryAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_history)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityHistoryBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        adapter = HistoryAdapter()
+        binding.recyclerHistory.layoutManager = LinearLayoutManager(this)
+        binding.recyclerHistory.adapter = adapter
+
+        loadHistory()
+    }
+
+    private fun loadHistory() {
+        lifecycleScope.launch {
+            val quotations =
+                VoiceQuoteApplication.database
+                    .quotationDao()
+                    .getAllQuotations()
+            adapter.submitList(quotations)
         }
     }
 }

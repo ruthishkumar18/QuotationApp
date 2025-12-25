@@ -1,21 +1,28 @@
 package com.example.onlinefoodorderingapp.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.onlinefoodorderingapp.R
+import com.example.onlinefoodorderingapp.database.DBHelper
+import com.example.onlinefoodorderingapp.databinding.ActivityOrderConfirmationBinding
+import com.example.onlinefoodorderingapp.utils.QRGenerator
+import java.util.UUID
 
 class OrderConfirmationActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityOrderConfirmationBinding
+    private lateinit var dbHelper: DBHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_order_confirmation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        binding = ActivityOrderConfirmationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        dbHelper = DBHelper(this)
+
+        val orderId = UUID.randomUUID().toString()
+        binding.qrOrder.setImageBitmap(QRGenerator.generate(orderId))
+
+        dbHelper.saveOrder(orderId)
+        dbHelper.clearCart()
     }
 }

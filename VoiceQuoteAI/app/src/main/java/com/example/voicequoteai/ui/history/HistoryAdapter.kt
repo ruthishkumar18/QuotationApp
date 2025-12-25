@@ -1,21 +1,46 @@
 package com.example.voicequoteai.ui.history
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.voicequoteai.data.model.Quotation
+import com.example.voicequoteai.databinding.ItemQuotationRowBinding
 
-class HistoryAdapter : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_history_adapter)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+class HistoryAdapter :
+    RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+
+    private val items = mutableListOf<Quotation>()
+
+    fun submitList(list: List<Quotation>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(
+        private val binding: ItemQuotationRowBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Quotation) {
+            binding.txtClient.text = item.clientName
+            binding.txtService.text = item.service
+            binding.txtAmount.text = "₹ ${item.amount}"
+            binding.txtDate.text = item.date
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemQuotationRowBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ViewHolder(binding)
+    }
+
+    override fun getItemCount() = items.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(items[position])
     }
 }

@@ -1,21 +1,15 @@
 package com.example.voicequoteai.data.model
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class BusinessProfile : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_business_profile)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-}
+@Entity(tableName = "business_profile")
+data class BusinessProfile(
+    @PrimaryKey
+    val id: Int = 1,   // Single profile logic
+    val businessName: String,
+    val ownerName: String,
+    val phone: String,
+    val email: String,
+    val gstNumber: String
+)

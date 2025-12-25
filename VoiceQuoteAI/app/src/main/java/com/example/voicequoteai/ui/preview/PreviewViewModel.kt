@@ -1,21 +1,34 @@
 package com.example.voicequoteai.ui.preview
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.voicequoteai.ai.AIResult
+import com.example.voicequoteai.ai.FieldMapper
+import com.example.voicequoteai.ai.FollowUpQuestionEngine
+import com.example.voicequoteai.ai.NLPExtractor
+import com.example.voicequoteai.data.model.Quotation
+import com.example.voicequoteai.data.repository.QuotationRepository
+import kotlinx.coroutines.launch
 
-class PreviewViewModel : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_preview_view_model)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+class PreviewViewModel(
+    private val nlpExtractor: NLPExtractor,
+    private val fieldMapper: FieldMapper,
+    private val followUpQuestionEngine: FollowUpQuestionEngine,
+    private val quotationRepository: QuotationRepository
+) : ViewModel() {
+
+    fun parseVoiceText(text: String): AIResult {
+        return nlpExtractor.extract(text)
+    }
+
+    fun createQuotation(aiResult: AIResult): Quotation {
+        return fieldMapper.mapToQuotation(aiResult)
+    }
+
+    fun saveQuotation(quotation: Quotation) {
+        viewModelScope.launch {
+            quotationRepository.saveQuotation(quotation)
         }
     }
+
 }

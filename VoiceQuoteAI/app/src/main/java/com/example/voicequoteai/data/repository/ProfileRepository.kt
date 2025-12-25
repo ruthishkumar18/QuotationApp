@@ -1,21 +1,17 @@
 package com.example.voicequoteai.data.repository
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import com.example.voicequoteai.data.local.ProfileDao
+import com.example.voicequoteai.data.model.BusinessProfile
 
-class ProfileRepository : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_profile_repository)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class ProfileRepository(
+    private val profileDao: ProfileDao
+) {
+
+    suspend fun saveProfile(profile: BusinessProfile) {
+        profileDao.saveProfile(profile)
+    }
+
+    suspend fun getProfile(): BusinessProfile? {
+        return profileDao.getProfile()
     }
 }

@@ -1,21 +1,11 @@
-package com.example.voicequoteai.pdf
+package com.voicequoteai.pdf
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+object PdfTemplate {
 
-class PdfTemplate : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_pdf_template)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+    const val PAGE_WIDTH = 595
+    const val PAGE_HEIGHT = 842
+
+    const val TITLE_SIZE = 20f
+    const val HEADER_SIZE = 14f
+    const val BODY_SIZE = 12f
 }

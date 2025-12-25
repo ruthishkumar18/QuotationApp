@@ -1,21 +1,48 @@
 package com.example.voicequoteai.di
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.voicequoteai.R
+import android.content.Context
+import com.example.voicequoteai.VoiceQuoteApplication
+import com.example.voicequoteai.ai.FollowUpQuestionEngine
+import com.example.voicequoteai.ai.NLPExtractor
+import com.example.voicequoteai.ai.FieldMapper
+import com.example.voicequoteai.data.repository.ProfileRepository
+import com.example.voicequoteai.data.repository.QuotationRepository
+import com.example.voicequoteai.pdf.PdfGenerator
 
-class AppModule : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_app_module)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+object AppModule {
+
+    /* Database */
+
+    private val database
+        get() = VoiceQuoteApplication.database
+
+    /* Repositories */
+
+    val quotationRepository: QuotationRepository by lazy {
+        QuotationRepository(database.quotationDao())
+    }
+
+    val profileRepository: ProfileRepository by lazy {
+        ProfileRepository(database.profileDao())
+    }
+
+    /* AI Components */
+
+    val nlpExtractor: NLPExtractor by lazy {
+        NLPExtractor()
+    }
+
+    val fieldMapper: FieldMapper by lazy {
+        FieldMapper()
+    }
+
+    val followUpQuestionEngine: FollowUpQuestionEngine by lazy {
+        FollowUpQuestionEngine()
+    }
+
+    /* PDF */
+
+    fun providePdfGenerator(context: Context): PdfGenerator {
+        return PdfGenerator(context)
     }
 }

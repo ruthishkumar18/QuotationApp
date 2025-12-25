@@ -1,21 +1,29 @@
 package com.example.realtimeprofileanalyzer.adapters
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.realtimeprofileanalyzer.R
 
-class ChartAdapter : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_chart_adapter)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+class ChartAdapter(
+    private val chartData: List<String>
+) : RecyclerView.Adapter<ChartAdapter.ChartViewHolder>() {
+
+    class ChartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvChartItem: TextView = view.findViewById(R.id.tvChartItem)
     }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChartViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_chart_row, parent, false)
+        return ChartViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ChartViewHolder, position: Int) {
+        holder.tvChartItem.text = chartData[position]
+    }
+
+    override fun getItemCount(): Int = chartData.size
 }

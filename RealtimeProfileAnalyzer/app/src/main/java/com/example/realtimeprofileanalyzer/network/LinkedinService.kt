@@ -1,21 +1,14 @@
 package com.example.realtimeprofileanalyzer.network
 
-import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.realtimeprofileanalyzer.R
+import com.example.realtimeprofileanalyzer.models.LinkedinProfile
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-class LinkedinService : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_linkedin_service)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
+interface LinkedinService {
+
+    @GET("linkedin/analyze")
+    fun analyzeLinkedinProfile(
+        @Query("profileUrl") profileUrl: String
+    ): Call<LinkedinProfile>
 }
