@@ -47,40 +47,38 @@ QuotationApp is a complete Android application designed for small businesses and
 QuotationApp/
 ├── app/
 │   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/example/quotationapp/
-│   │   │   │   ├── adapter/
-│   │   │   │   │   ├── ComponentsAdapter.kt
-│   │   │   │   │   ├── PrepareComponentsAdapter.kt
-│   │   │   │   │   └── QuotationHistoryAdapter.kt
-│   │   │   │   │
-│   │   │   │   ├── db/
-│   │   │   │   │   ├── AppDatabase.kt
-│   │   │   │   │   ├── DatabaseContract.kt
-│   │   │   │   │   └── DatabaseManager.kt
-│   │   │   │   │
-│   │   │   │   ├── model/
-│   │   │   │   │   ├── ComponentModel.kt
-│   │   │   │   │   └── QuotationModel.kt
-│   │   │   │   │
-│   │   │   │   ├── AddCompanyHeaderActivity.kt
-│   │   │   │   ├── AddComponentsActivity.kt
-│   │   │   │   ├── HomeActivity.kt
-│   │   │   │   ├── LoginActivity.kt
-│   │   │   │   ├── PrepareQuotationActivity.kt
-│   │   │   │   ├── QuotationHistoryActivity.kt
-│   │   │   │   ├── QuotationPDFActivity.kt
-│   │   │   │   └── PaymentQRActivity.kt
-│   │   │   │
-│   │   │   ├── res/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── drawable/
-│   │   │   │   ├── values/
-│   │   │   │   └── xml/
-│   │   │   │
-│   │   │   └── AndroidManifest.xml
-│   │   │
-│   │   └── build.gradle
+│   │   └── main/
+│   │       ├── java/com/example/quotationapp/
+│   │       │   ├── adapter/
+│   │       │   │   ├── ComponentsAdapter.kt
+│   │       │   │   ├── PrepareComponentsAdapter.kt
+│   │       │   │   └── QuotationHistoryAdapter.kt
+│   │       │   │
+│   │       │   ├── db/
+│   │       │   │   ├── AppDatabase.kt
+│   │       │   │   ├── DatabaseContract.kt
+│   │       │   │   └── DatabaseManager.kt
+│   │       │   │
+│   │       │   ├── model/
+│   │       │   │   ├── ComponentModel.kt
+│   │       │   │   └── QuotationModel.kt
+│   │       │   │
+│   │       │   ├── AddCompanyHeaderActivity.kt
+│   │       │   ├── AddComponentsActivity.kt
+│   │       │   ├── HomeActivity.kt
+│   │       │   ├── LoginActivity.kt
+│   │       │   ├── PrepareQuotationActivity.kt
+│   │       │   ├── QuotationHistoryActivity.kt
+│   │       │   ├── QuotationPDFActivity.kt
+│   │       │   └── PaymentQRActivity.kt
+│   │       │
+│   │       ├── res/
+│   │       │   ├── layout/
+│   │       │   ├── drawable/
+│   │       │   ├── values/
+│   │       │   └── xml/
+│   │       │
+│   │       └── AndroidManifest.xml
 │   │
 │   └── build.gradle
 │
@@ -88,7 +86,6 @@ QuotationApp/
 ├── build.gradle
 ├── settings.gradle
 └── README.md
-
 
 ---
 
